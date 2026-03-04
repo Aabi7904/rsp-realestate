@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { projects, roads, type Road } from "@/data/projects";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -105,11 +106,12 @@ const ProjectShowcase = () => {
             className="space-y-2"
           >
             {filtered.map((project) => (
-              <div
+              <Link
                 key={project.id}
+                to={`/projects/${project.id}`}
                 id={project.id}
                 data-project-card
-                className={`group relative h-[400px] sm:h-[500px] overflow-hidden cursor-pointer transition-all duration-700 ${
+                className={`group relative block h-[400px] sm:h-[500px] overflow-hidden cursor-pointer transition-all duration-700 ${
                   visibleItems.has(project.id) ? "opacity-100" : "opacity-0 translate-y-8"
                 }`}
               >
@@ -157,7 +159,7 @@ const ProjectShowcase = () => {
                     {project.status}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </motion.div>
         </AnimatePresence>
