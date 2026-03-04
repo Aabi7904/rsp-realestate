@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import rsplogo from "@/assets/rsplogoo.png";
 
 const navLinks = [
   { label: "Projects", path: "/" },
@@ -29,26 +30,36 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "glass-panel py-3" : "py-6 bg-transparent"
+          scrolled ? "glass-panel py-2" : "py-2 bg-transparent"
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <span className="font-display text-xl gold-gradient-text tracking-royal">
-              RSP
-            </span>
-            <span className="hidden sm:block font-body text-[10px] uppercase tracking-ultra text-muted-foreground">
-              Developers Ltd
-            </span>
+
+          {/* Logo + Company Name */}
+          <Link to="/" className="flex items-center gap-4">
+            <img
+              src={rsplogo}
+              alt="RSP Developers Logo"
+              className="h-20 md:h-24 w-auto object-contain"
+            />
+
+            <div className="flex flex-col leading-tight">
+              <span className="font-display text-2xl md:text-3xl font-bold text-primary tracking-royal">
+                RSP
+              </span>
+              <span className="font-body text-sm uppercase tracking-ultra text-muted-foreground">
+                Developers LTD
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop */}
-          <div className="hidden md:flex items-center gap-10">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-12">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-body text-xs uppercase tracking-royal transition-colors duration-300 ${
+                className={`font-body text-base uppercase tracking-royal transition-all duration-300 ${
                   location.pathname === link.path
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
@@ -57,33 +68,38 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+
             <a
               href="tel:9443355212"
-              className="flex items-center gap-2 gold-border px-5 py-2 text-xs uppercase tracking-royal text-primary font-body transition-all duration-500 hover:bg-primary hover:text-primary-foreground gold-shimmer"
+              className="flex items-center gap-2 gold-border px-6 py-3 text-base uppercase tracking-royal text-primary font-body transition-all duration-500 hover:bg-primary hover:text-primary-foreground gold-shimmer"
             >
-              <Phone className="w-3 h-3" />
+              <Phone className="w-4 h-4" />
               Call Now
             </a>
           </div>
 
-          {/* Mobile toggle */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden text-foreground"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? (
+              <X className="w-8 h-8" />
+            ) : (
+              <Menu className="w-8 h-8" />
+            )}
           </button>
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/98 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-40 bg-background/98 flex flex-col items-center justify-center gap-10"
           >
             {navLinks.map((link, i) => (
               <motion.div
@@ -94,20 +110,23 @@ const Navbar = () => {
               >
                 <Link
                   to={link.path}
-                  className={`font-heading text-3xl tracking-royal transition-colors ${
-                    location.pathname === link.path ? "gold-gradient-text" : "text-foreground"
+                  className={`font-heading text-4xl tracking-royal transition-colors ${
+                    location.pathname === link.path
+                      ? "gold-gradient-text"
+                      : "text-foreground"
                   }`}
                 >
                   {link.label}
                 </Link>
               </motion.div>
             ))}
+
             <motion.a
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               href="tel:9443355212"
-              className="gold-border px-8 py-3 text-sm uppercase tracking-royal text-primary font-body"
+              className="gold-border px-10 py-4 text-base uppercase tracking-royal text-primary font-body"
             >
               Call Now
             </motion.a>

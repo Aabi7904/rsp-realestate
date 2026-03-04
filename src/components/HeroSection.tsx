@@ -1,13 +1,20 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import heroImg from "@/assets/hero-land.jpg";
+import logoImg from "@/assets/rsplogoo.png";
 
 const HeroSection = () => {
+  const location = useLocation();
+
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section
+      key={location.pathname}
+      className="relative h-screen w-full overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0">
         <motion.img
@@ -16,10 +23,9 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 8, ease: "easeOut" }}
+          transition={{ duration: 6, ease: "easeOut" }}
         />
         <div className="cinematic-overlay absolute inset-0" />
-        {/* Gold grain texture */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -30,55 +36,72 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: 80 }}
-          transition={{ duration: 1.2, delay: 0.3 }}
-          className="gold-divider mb-8"
+
+        {/* Logo */}
+        <motion.img
+          src={logoImg}
+          alt="RSP Developers Logo"
+          initial={{ opacity: 0, scale: 0.3, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
+          className="w-40 sm:w-52 md:w-64 lg:w-72 mb-1 drop-shadow-[0_0_30px_rgba(255,215,0,0.35)]"
         />
 
+        {/* Gold Divider */}
+        <motion.div
+          initial={{ opacity: 0, width: 0 }}
+          animate={{ opacity: 1, width: 100 }}
+          transition={{ duration: 1 }}
+          className="gold-divider mb-2"
+        />
+
+        {/* Company Name */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="font-body text-xs uppercase tracking-ultra text-muted-foreground mb-6"
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="font-body text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] text-primary font-semibold mb-6"
         >
-          RSP Developers Ltd · Since 1999
+          RSP DEVELOPERS LTD · SINCE 1999
         </motion.p>
 
+        {/* Main Heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
           className="font-display text-5xl sm:text-7xl lg:text-8xl gold-gradient-text tracking-royal mb-6"
         >
           LAND OF LEGACY.
         </motion.h1>
 
+        {/* Sub Heading */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1.2, delay: 0.9 }}
           className="font-elegant text-xl sm:text-2xl text-muted-foreground italic max-w-xl mb-12"
         >
           A Premium Investment Destination Since 1999
         </motion.p>
 
+        {/* Button */}
         <motion.button
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.6 }}
+          transition={{ duration: 1.2, delay: 1.2 }}
+          whileHover={{ scale: 1.05 }}
           onClick={scrollToProjects}
-          className="gold-border px-10 py-4 font-body text-xs uppercase tracking-ultra text-primary transition-all duration-500 hover:bg-primary hover:text-primary-foreground gold-shimmer"
+          className="gold-border px-12 py-4 font-body text-sm uppercase tracking-ultra text-primary transition-all duration-500 hover:bg-primary hover:text-primary-foreground gold-shimmer"
         >
           Enter Our Projects
         </motion.button>
 
-        {/* Scroll indicator */}
+        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.5 }}
+          transition={{ delay: 1.8 }}
           className="absolute bottom-10"
         >
           <motion.div
