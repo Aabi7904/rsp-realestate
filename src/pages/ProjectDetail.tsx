@@ -26,12 +26,36 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
+import laxmigarden3 from "@/assets/laxmi garden 3.png";
+import happyhome from "@/assets/happy home.png";
+import sivasakthinagar from "@/assets/sivasakthi nagar.png";
+import sairamnagar from "@/assets/sairam nagar.png";
+import dhanasrinagar from "@/assets/dhana shri nagar.png";
+import balajinagar from "@/assets/balaji nagar.png";
+import pournaminagar from "@/assets/pournami nagar.png";
+import anandamnagar from "@/assets/anandam nagar.png";
+import udhayamnagar from "@/assets/udhayam nagar.png";
+import srinivasanagar from "@/assets/srinivasa nagar.png";
+import maruthinagar from "@/assets/maruthi nagar.png";
+import renukanagar from "@/assets/renuka nagar.png";
 
 const imageMap: Record<string, string> = {
   "project-1": project1,
   "project-2": project2,
   "project-3": project3,
   "project-4": project4,
+  "laxmi-garden-3": laxmigarden3,
+  "happy-home": happyhome,
+  "sivasakthi-nagar": sivasakthinagar,
+  "sairam-nagar": sairamnagar,
+  "dhana-shri-nagar": dhanasrinagar,
+  "balaji-nagar": balajinagar,
+  "pournami-nagar": pournaminagar,
+  "anandam-nagar": anandamnagar,
+  "udhayam-nagar": udhayamnagar,
+  "srinivasa-nagar": srinivasanagar,
+  "maruthi-nagar": maruthinagar,
+  "renuka-nagar": renukanagar,
 };
 
 const iconMap: Record<string, React.ElementType> = {
@@ -228,7 +252,7 @@ const ProjectDetail = () => {
               onClick={() => setLightboxIdx(-1)}
             >
               <img
-                src={imageMap[project.image]}
+                src={imageMap[project.layoutImage]}
                 alt={`${project.name} Layout`}
                 className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
