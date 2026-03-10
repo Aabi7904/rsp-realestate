@@ -38,6 +38,9 @@ import udhayamnagar from "@/assets/udhayam nagar.png";
 import srinivasanagar from "@/assets/srinivasa nagar.png";
 import maruthinagar from "@/assets/maruthi nagar.png";
 import renukanagar from "@/assets/renuka nagar.png";
+import laxmigarden from "@/assets/laxmi garden.png";
+import laxminagar from "@/assets/laxmi nagar.png";
+import maruthinagar2 from "@/assets/maruthi nagar extended.png";
 
 const imageMap: Record<string, string> = {
   "project-1": project1,
@@ -56,6 +59,9 @@ const imageMap: Record<string, string> = {
   "srinivasa-nagar": srinivasanagar,
   "maruthi-nagar": maruthinagar,
   "renuka-nagar": renukanagar,
+  "laxmi-garden": laxmigarden,
+  "laxmi-nagar": laxminagar,
+  "maruthi-nagar-extended": maruthinagar2,
 };
 
 const iconMap: Record<string, React.ElementType> = {
