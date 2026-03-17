@@ -73,7 +73,7 @@ export const projects: Project[] = [
   {
     id: "lakshmi-garden",
     name: "Lakshmi Garden",
-    road: "ARANI ROAD",
+    road: "TIRUVANNAMALAI ROAD",
     address: "Arani Road, Chetpet, Tamil Nadu",
     description: "Well-developed gated residential layout.",
     aboutText: "Lakshmi Garden provides modern infrastructure with peaceful living.",
@@ -283,9 +283,9 @@ export const projects: Project[] = [
   },
 
   {
-    id: "thulasi-nagar",
-    name: "Thulasi Nagar",
-    road: "GINGEE ROAD",
+    id: "thulasi-vanam",
+    name: "Thulasi Vanam",
+    road: "TIRUVANNAMALAI ROAD",
     address: "Gingee Road, Chetpet, Tamil Nadu",
     description: "Calm and peaceful residential plots.",
     aboutText: "Thulasi Nagar offers green surroundings with modern amenities.",
@@ -341,8 +341,8 @@ export const projects: Project[] = [
 
   {
     id: "shri-renugambal-nagar",
-    name: "Shri Renugambal Nagar",
-    road: "GINGEE ROAD",
+    name: "Shri Renugambal Nagar Extension",
+    road: "TIRUVANNAMALAI ROAD",
     address: "Gingee Road, Chetpet, Tamil Nadu",
     description: "Premium layout in growing locality.",
     aboutText: "Shri Renugambal Nagar offers safe and secure residential plots.",

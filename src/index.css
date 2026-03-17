@@ -192,4 +192,14 @@
   .tracking-ultra {
     letter-spacing: 0.35em;
   }
+  @font-face {
+  font-family: "Famosa";
+  src: url("/fonts/Famosa-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-famosa {
+  font-family: "Famosa", serif;
+}
 }

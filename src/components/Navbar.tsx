@@ -40,15 +40,16 @@ const Navbar = () => {
             <img
               src={rsplogo}
               alt="RSP Developers Logo"
-              className="h-20 md:h-24 w-auto object-contain"
+              className="h-28 md:h-32 w-auto object-contain"
             />
 
             <div className="flex flex-col leading-tight">
-              <span className="font-display text-2xl md:text-3xl font-bold text-primary tracking-royal">
+              <span className="font-famosa text-2xl md:text-3xl text-primary tracking-royal">
                 RSP
               </span>
-              <span className="font-body text-sm uppercase tracking-ultra text-muted-foreground">
-                Developers LTD
+
+              <span className="font-famosa text-sm uppercase tracking-ultra text-muted-foreground">
+                Developers Pvt.Ltd.
               </span>
             </div>
           </Link>
@@ -89,6 +90,7 @@ const Navbar = () => {
               <Menu className="w-8 h-8" />
             )}
           </button>
+
         </div>
       </motion.nav>
 

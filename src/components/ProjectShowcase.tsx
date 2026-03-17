@@ -55,7 +55,7 @@ const ProjectShowcase = () => {
           viewport={{ once: true }}
           className="font-body text-xs uppercase tracking-ultra text-primary mb-4"
         >
-          Our Portfolio
+          Explore Now
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ const ProjectShowcase = () => {
           viewport={{ once: true }}
           className="font-heading text-4xl sm:text-5xl lg:text-6xl text-foreground mb-6"
         >
-          Imperial Projects
+          Our Projects
         </motion.h2>
         <div className="gold-divider max-w-[100px] mx-auto" />
       </div>

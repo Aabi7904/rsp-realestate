@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ShieldCheck, FileCheck, Smile, Award, Landmark, Target, Eye } from "lucide-react";
-import mdPortrait from "@/assets/rspmd.png";
+import mdPortrait from "@/assets/rspmd2.jpg";
 
 const About = () => {
 
@@ -209,7 +209,7 @@ const About = () => {
       </p>
 
       <h2 className="font-serif text-5xl text-white mb-4">
-        MR. SAKTHI PRASANNA
+        Mr R.R. SAKTHI PRASANA
       </h2>
 
       <p className="text-sm tracking-[0.3em] text-gray-400 mb-10">

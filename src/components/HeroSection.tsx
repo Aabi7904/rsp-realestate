@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import heroImg from "@/assets/hero-land.jpg";
-import logoImg from "@/assets/rsplogoo.png";
+import logoImg from "@/assets/since.jpeg";
 
 const HeroSection = () => {
   const location = useLocation();
@@ -26,6 +26,7 @@ const HeroSection = () => {
           transition={{ duration: 6, ease: "easeOut" }}
         />
         <div className="cinematic-overlay absolute inset-0" />
+
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -44,7 +45,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.3, rotate: -10 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.8, ease: "easeOut" }}
-          className="w-40 sm:w-52 md:w-64 lg:w-72 mb-1 drop-shadow-[0_0_30px_rgba(255,215,0,0.35)]"
+          className="w-24 sm:w-32 md:w-40 lg:w-48 mb-1 drop-shadow-[0_0_30px_rgba(255,215,0,0.35)]"
         />
 
         {/* Gold Divider */}
@@ -62,7 +63,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.3 }}
           className="font-body text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] text-primary font-semibold mb-6"
         >
-          RSP DEVELOPERS LTD · SINCE 1999
+          RSP DEVELOPERS PVT.LTD. - SINCE 1999
         </motion.p>
 
         {/* Main Heading */}
@@ -110,6 +111,7 @@ const HeroSection = () => {
             className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent"
           />
         </motion.div>
+
       </div>
     </section>
   );
