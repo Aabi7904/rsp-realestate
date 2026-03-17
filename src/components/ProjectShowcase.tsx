@@ -7,12 +7,16 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
+import dhanaSriNagar from "@/assets/dhana-sri-nagar.png";
 
 const imageMap: Record<string, string> = {
   "project-1": project1,
   "project-2": project2,
   "project-3": project3,
   "project-4": project4,
+
+  // ✅ NEW IMAGE (Dhana Shri Nagar)
+  "dhana-shri-nagar": dhanaSriNagar,
 };
 
 const ProjectShowcase = () => {

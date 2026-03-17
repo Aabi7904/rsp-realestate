@@ -51,24 +51,27 @@ const defaultMapUrl =
 export const projects: Project[] = [
 
   // ===== ARANI ROAD =====
-  {
-    id: "dhana-shri-nagar",
-    name: "Dhana Shri Nagar",
-    road: "ARANI ROAD",
-    address: "Arani Road, Chetpet, Tamil Nadu",
-    description: "Premium residential layout with essential infrastructure.",
-    aboutText: "Dhana Shri Nagar offers well-planned plots in a fast-growing residential corridor.",
-    plots: 120,
-    totalArea: "15 Acres",
-    plotSizes: "1200 - 2400 sq.ft",
-    status: "Completed",
-    image: "project-1",
-    layoutImage: "dhana-shri-nagar",
-    galleryImages: ["project-1","project-2","project-3","project-4"],
-    amenities: defaultAmenities,
-    landmarks: ["Near Bus Stand","Close to NH","Near School","Hospital Nearby"],
-    mapEmbedUrl: defaultMapUrl,
-  },
+{
+  id: "dhana-shri-nagar",
+  name: "Dhana Shri Nagar",
+  road: "ARANI ROAD",
+  address: "Arani Road, Chetpet, Tamil Nadu",
+  description: "Premium residential layout with essential infrastructure.",
+  aboutText: "Dhana Shri Nagar offers well-planned plots in a fast-growing residential corridor.",
+  plots: 120,
+  totalArea: "15 Acres",
+  plotSizes: "1200 - 2400 sq.ft",
+  status: "Completed",
+
+  // ✅ UPDATED IMAGE KEY
+  image: "dhana-shri-nagar",
+
+  layoutImage: "dhana-shri-nagar",
+  galleryImages: ["project-1","project-2","project-3","project-4"],
+  amenities: defaultAmenities,
+  landmarks: ["Near Bus Stand","Close to NH","Near School","Hospital Nearby"],
+  mapEmbedUrl: defaultMapUrl,
+},
 
   {
     id: "lakshmi-garden",

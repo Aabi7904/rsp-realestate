@@ -30,7 +30,7 @@ import laxmigarden3 from "@/assets/laxmi garden 3.png";
 import happyhome from "@/assets/happy home.png";
 import sivasakthinagar from "@/assets/sivasakthi nagar.png";
 import sairamnagar from "@/assets/sairam nagar.png";
-import dhanasrinagar from "@/assets/dhana shri nagar.png";
+
 import balajinagar from "@/assets/balaji nagar.png";
 import pournaminagar from "@/assets/pournami nagar.png";
 import anandamnagar from "@/assets/anandam nagar.png";
@@ -41,6 +41,7 @@ import renukanagar from "@/assets/renuka nagar.png";
 import laxmigarden from "@/assets/laxmi garden.png";
 import laxminagar from "@/assets/laxmi nagar.png";
 import maruthinagar2 from "@/assets/maruthi nagar extended.png";
+import dhanasrinagar from "@/assets/dhana-sri-nagar.png";
 
 const imageMap: Record<string, string> = {
   "project-1": project1,
