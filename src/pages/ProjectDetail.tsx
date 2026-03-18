@@ -120,22 +120,24 @@ const ProjectDetail = () => {
 
         <div className="relative z-10 text-center px-6 max-w-4xl">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-            <span className="emerald-badge mb-6 inline-block">{project.road}</span>
+            <span className="mb-6 px-5 py-2 bg-black/80 text-primary border border-primary/40 text-[10px] uppercase tracking-[0.2em] font-bold rounded-full shadow-xl backdrop-blur-md inline-block">
+              {project.road}
+            </span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="font-heading text-4xl sm:text-6xl lg:text-7xl text-foreground mb-4"
+            className="font-heading text-4xl sm:text-6xl lg:text-7xl text-foreground mb-4 drop-shadow-2xl"
           >
             {project.name}
           </motion.h1>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
             <div className="gold-divider max-w-[100px] mx-auto mb-6" />
-            <p className="font-body text-sm text-muted-foreground flex items-center justify-center gap-2 mb-10">
-              <MapPin className="w-4 h-4 text-primary" />
+            <p className="font-body text-sm text-primary flex items-center justify-center gap-2 mb-10 font-medium tracking-wide">
+              <MapPin className="w-4 h-4" />
               {project.address}
             </p>
           </motion.div>
@@ -144,27 +146,52 @@ const ProjectDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55 }}
-            className="flex flex-wrap justify-center gap-4"
+            className="flex justify-center"
           >
             <a
               href="#enquiry"
-              className="gold-border px-8 py-4 font-body text-xs uppercase tracking-ultra text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500 gold-shimmer"
+              className="px-10 py-4 font-body text-xs uppercase tracking-ultra bg-primary text-black font-bold rounded-full hover:bg-white transition-all duration-500 shadow-[0_0_20px_rgba(212,175,55,0.4)] gold-shimmer"
             >
               Enquire Now
             </a>
-            <button className="border border-border px-8 py-4 font-body text-xs uppercase tracking-ultra text-muted-foreground hover:border-primary hover:text-primary transition-all duration-500">
-              Download Brochure
-            </button>
           </motion.div>
         </div>
 
-        {/* Back link */}
         <Link
           to="/"
           className="absolute top-28 left-6 sm:left-10 z-10 flex items-center gap-2 font-body text-xs uppercase tracking-royal text-muted-foreground hover:text-primary transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
+      </section>
+
+      {/* ── Layout Map (Moved to First Position) ── */}
+      <section className="py-24 px-6 border-b border-border">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-center mb-16">
+            <p className="font-body text-xs uppercase tracking-ultra text-primary mb-4">Master Plan</p>
+            <h2 className="font-heading text-3xl sm:text-4xl text-foreground mb-6">Project Layout</h2>
+            <div className="gold-divider max-w-[80px] mx-auto" />
+          </motion.div>
+
+          <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            <div
+              className="gold-border p-2 cursor-pointer group"
+              onClick={() => setLightboxIdx(-1)}
+            >
+              <img
+                src={imageMap[project.layoutImage]}
+                alt={`${project.name} Layout`}
+                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="text-center mt-6">
+              <button className="gold-border px-8 py-4 font-body text-xs uppercase tracking-ultra text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500 gold-shimmer inline-flex items-center gap-3">
+                <Download className="w-4 h-4" /> Download Layout
+              </button>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* ── About ── */}
@@ -179,7 +206,6 @@ const ProjectDetail = () => {
             </p>
           </motion.div>
 
-          {/* Key highlights */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
               { label: "Total Land Area", value: project.totalArea, icon: LayoutGrid },
@@ -244,35 +270,6 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* ── Layout Map ── */}
-      <section className="py-24 px-6 border-t border-border">
-        <div className="container mx-auto max-w-5xl">
-          <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-center mb-16">
-            <p className="font-body text-xs uppercase tracking-ultra text-primary mb-4">Master Plan</p>
-            <h2 className="font-heading text-3xl sm:text-4xl text-foreground mb-6">Project Layout</h2>
-            <div className="gold-divider max-w-[80px] mx-auto" />
-          </motion.div>
-
-          <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <div
-              className="gold-border p-2 cursor-pointer group"
-              onClick={() => setLightboxIdx(-1)}
-            >
-              <img
-                src={imageMap[project.layoutImage]}
-                alt={`${project.name} Layout`}
-                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-            </div>
-            <div className="text-center mt-6">
-              <button className="gold-border px-8 py-4 font-body text-xs uppercase tracking-ultra text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500 gold-shimmer inline-flex items-center gap-3">
-                <Download className="w-4 h-4" /> Download Layout
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ── Location ── */}
       <section className="py-24 px-6 border-t border-border">
         <div className="container mx-auto max-w-5xl">
@@ -296,8 +293,8 @@ const ProjectDetail = () => {
                   title={`${project.name} Location`}
                 />
               </div>
-              <p className="font-body text-sm text-muted-foreground mt-4 flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+              <p className="font-body text-sm text-primary mt-4 flex items-start gap-2 font-medium">
+                <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
                 {project.address}
               </p>
             </motion.div>

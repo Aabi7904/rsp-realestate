@@ -163,23 +163,28 @@ const ProjectShowcase = () => {
                 <div className="absolute inset-4 border border-transparent group-hover:border-primary/30 transition-all duration-700 pointer-events-none" />
 
                 {/* Content */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                  <span className="emerald-badge mb-6">{project.road}</span>
+<div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+  
+  {/* ROAD NAME - Master Pill */}
+  <span className="mb-6 px-5 py-2 bg-black/80 text-primary border border-primary/40 text-[10px] uppercase tracking-[0.2em] font-bold rounded-full shadow-xl backdrop-blur-md">
+    {project.road}
+  </span>
 
-                  <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4 transition-transform duration-500 group-hover:-translate-y-2">
-                    {project.name}
-                  </h3>
+  {/* PROJECT NAME */}
+  <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-white mb-6 transition-transform duration-500 group-hover:-translate-y-2 drop-shadow-2xl">
+    {project.name}
+  </h3>
 
-                  <div className="gold-divider w-16 mb-4 transition-all duration-500 group-hover:w-24" />
+  <div className="gold-divider w-16 mb-10 transition-all duration-500 group-hover:w-24" />
 
-                  <p className="font-body text-sm text-muted-foreground max-w-md mb-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                    {project.description}
-                  </p>
-
-                  <div className="flex items-center gap-2 text-primary font-body text-xs uppercase tracking-royal opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                    View Project <ArrowRight className="w-3 h-3" />
-                  </div>
-                </div>
+  {/* VIEW PROJECT BUTTON - Enhanced Visibility & Positioned for Balance */}
+  <div className="opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+    <div className="flex items-center gap-3 px-8 py-3.5 bg-primary text-black font-bold text-[11px] uppercase tracking-widest rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+      <span>View Project Details</span>
+      <ArrowRight className="w-4 h-4" />
+    </div>
+  </div>
+</div>
 
                 {/* Status badge */}
                 <div className="absolute top-6 right-6">
