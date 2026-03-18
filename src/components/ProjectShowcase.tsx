@@ -8,6 +8,21 @@ import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 import dhanaSriNagar from "@/assets/dhana-sri-nagar.png";
+import laxmigarden from "@/assets/laxmi garden.png";
+import balajiNagar from "@/assets/balaji nagar.png";
+import laxmigarden3 from "@/assets/laxmi garden 3.png";
+import happyhome from "@/assets/happy home.png";
+import sivasakthiNagar from "@/assets/sivasakthi nagar.png";
+import pournamiNagar from "@/assets/pournami nagar.png";
+import anandamnagar from "@/assets/anandam nagar.png";
+import udhayamNagar from "@/assets/udhayam nagar.png";
+import laxminagar from "@/assets/laxmi nagar.png";
+import srinivasaNagar from "@/assets/srinivasa nagar.png";
+import maruthiNagar from "@/assets/maruthi nagar.png";
+import tulasivanam from "@/assets/tulasi vanam.png";
+import sairamnagar from "@/assets/sairam nagar.png";
+import maruthinagarextended from "@/assets/maruthi nagar extended.png";
+import renukaNagar from "@/assets/renuka nagar.png";
 
 const imageMap: Record<string, string> = {
   "project-1": project1,
@@ -17,6 +32,21 @@ const imageMap: Record<string, string> = {
 
   // ✅ NEW IMAGE (Dhana Shri Nagar)
   "dhana-shri-nagar": dhanaSriNagar,
+  "laxmi-garden": laxmigarden,
+  "balaji-nagar": balajiNagar,
+  "laxmi-garden-3": laxmigarden3,
+  "happy-home": happyhome,
+  "sivasakthi-nagar": sivasakthiNagar,
+  "pournami-nagar": pournamiNagar,
+  "anandam-nagar": anandamnagar,
+  "udhayam-nagar": udhayamNagar,
+  "laxmi-nagar": laxminagar,
+  "srinivasa-nagar": srinivasaNagar,
+  "maruthi-nagar": maruthiNagar,
+  "tulasi-vanam": tulasivanam,
+  "sairam-nagar": sairamnagar,
+  "maruthi-nagar-extended": maruthinagarextended,
+  "renuka-nagar": renukaNagar,
 };
 
 const ProjectShowcase = () => {
