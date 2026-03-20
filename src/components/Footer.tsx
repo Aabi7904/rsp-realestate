@@ -9,14 +9,12 @@ const Footer = () => (
 
         {/* Brand */}
         <div>
-          {/* Logo */}
           <img
             src={rspLogo}
             alt="RSP Developers Logo"
             className="w-28 mb-4"
           />
 
-          {/* Company Name */}
           <span className="font-famosa text-3xl text-primary tracking-royal">
             RSP
           </span>
@@ -30,13 +28,13 @@ const Footer = () => (
           </p>
         </div>
 
-        {/* Links */}
-        <div>
+        {/* Links + SOCIAL CENTER */}
+        <div className="text-center">
           <h4 className="font-heading text-sm text-foreground mb-4">
             Quick Links
           </h4>
 
-          <div className="space-y-3">
+          <div className="space-y-3 mb-8">
             {[
               { label: "Projects", path: "/" },
               { label: "About Us", path: "/about" },
@@ -50,6 +48,41 @@ const Footer = () => (
                 {link.label}
               </Link>
             ))}
+          </div>
+
+          {/* SOCIAL BOXES BELOW QUICK LINKS */}
+          <div className="flex justify-center gap-8">
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/sakthiprasanarsp?igsh=MXI0aHg4b2Y2dGJ0cw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group"
+            >
+              <div className="flex items-center justify-center w-20 h-20 border border-primary rounded-xl hover:bg-primary/10 transition-all duration-300">
+                <Instagram className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="mt-2 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+                Instagram
+              </span>
+            </a>
+
+            {/* YouTube */}
+            <a
+              href="https://youtube.com/@r.r.sakthiprasana8719?si=7LYVNjz-IvcjOls0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group"
+            >
+              <div className="flex items-center justify-center w-20 h-20 border border-primary rounded-xl hover:bg-primary/10 transition-all duration-300">
+                <Youtube className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="mt-2 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+                YouTube
+              </span>
+            </a>
+
           </div>
         </div>
 
@@ -82,28 +115,6 @@ const Footer = () => (
               Chetpet, near Tiruvannamalai
             </div>
 
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/sakthiprasanarsp?igsh=MXI0aHg4b2Y2dGJ0cw=="
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Instagram className="w-4 h-4 text-primary" />
-              Instagram
-            </a>
-
-            {/* YouTube */}
-            <a
-              href="https://youtube.com/@r.r.sakthiprasana8719?si=7LYVNjz-IvcjOls0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Youtube className="w-4 h-4 text-primary" />
-              YouTube
-            </a>
-
           </div>
         </div>
 
@@ -114,7 +125,6 @@ const Footer = () => (
 
       {/* Bottom Section */}
       <div className="text-center space-y-3">
-
         <p className="font-body text-xs text-muted-foreground tracking-wider">
           © {new Date().getFullYear()} RSP Developers Ltd. All rights reserved.
         </p>
@@ -130,7 +140,6 @@ const Footer = () => (
             Synclify Solutions
           </a>
         </p>
-
       </div>
     </div>
   </footer>
