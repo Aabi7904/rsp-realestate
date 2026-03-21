@@ -2,6 +2,7 @@ export interface Amenity {
   icon: string;
   name: string;
 }
+import projectVideo1 from "@/assets/videos/udhayam-nagar.mp4";
 
 export interface Project {
   id: string;
@@ -21,6 +22,7 @@ export interface Project {
   amenities: Amenity[];
   landmarks: string[];
   mapEmbedUrl: string;
+  video?: string;
 }
 
 export const roads = [
@@ -212,6 +214,7 @@ export const projects: Project[] = [
   status: "Completed",
   image: "udhayam-nagar",
   layoutImage: "udhayam-nagar",
+  video: projectVideo1,
   galleryImages: ["project-4","project-1","project-2","project-3"],
   amenities: defaultAmenities,
   landmarks: ["Near Temple","Close to Bus Stand","Medical College Nearby","Shops Nearby"],

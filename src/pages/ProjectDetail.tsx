@@ -193,6 +193,30 @@ const ProjectDetail = () => {
           </motion.div>
         </div>
       </section>
+   {/* ── Project Video ── */}
+{project.video && (
+  <section className="py-24 px-6 border-b border-border">
+    <div className="container mx-auto max-w-5xl">
+
+      <div className="text-center mb-10">
+        <p className="text-xs uppercase text-primary mb-2">Walkthrough</p>
+        <h2 className="text-2xl font-bold">Project Video</h2>
+      </div>
+
+      {/* ✅ FIXED VIDEO UI */}
+      <div className="flex justify-center">
+        <div className="max-h-[80vh] aspect-[9/16] gold-border p-2">
+          <video
+            src={project.video}
+            controls
+            className="h-full w-full object-contain rounded-lg"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
 
       {/* ── About ── */}
       <section className="py-24 px-6">
