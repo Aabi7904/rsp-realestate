@@ -26,7 +26,6 @@ const HeroSection = () => {
           transition={{ duration: 6, ease: "easeOut" }}
         />
         <div className="cinematic-overlay absolute inset-0" />
-
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -35,35 +34,41 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Content */}
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+      {/* Content
+          — On mobile the navbar is ~56–64px tall, so pt-20 (80px) gives
+            a safe gap without pushing content too far down.
+          — On md+ the navbar is taller but justify-center handles centering. */}
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-4 sm:px-6">
 
-        {/* Logo */}
+        {/* Logo (since1.png) */}
         <motion.img
           src={logoImg}
-          alt="RSP Developers Logo"
+          alt="RSP Developers Since 1999"
           initial={{ opacity: 0, scale: 0.3, rotate: -10 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.8, ease: "easeOut" }}
-          className="w-24 sm:w-32 md:w-40 lg:w-48 mb-1 drop-shadow-[0_0_30px_rgba(255,215,0,0.35)]"
+          className="w-20 sm:w-28 md:w-36 lg:w-48 mb-1 drop-shadow-[0_0_30px_rgba(255,215,0,0.35)]"
         />
 
         {/* Gold Divider */}
         <motion.div
           initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: 100 }}
+          animate={{ opacity: 1, width: "6rem" }}
           transition={{ duration: 1 }}
-          className="gold-divider mb-2"
+          className="gold-divider mb-2 w-24"
         />
 
-        {/* Company Name */}
+        {/* Company Name
+            Reduced tracking on xs so the long string doesn't wrap oddly */}
         <motion.p
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="font-body text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] text-primary font-semibold mb-6"
+          className="font-body text-[10px] sm:text-xs md:text-base lg:text-lg
+                     uppercase tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.4em]
+                     text-primary font-semibold mb-4 sm:mb-6 w-full px-2"
         >
-          RSP DEVELOPERS PVT.LTD. - SINCE 1999
+          RSP DEVELOPERS PVT.LTD. &mdash; SINCE 1999
         </motion.p>
 
         {/* Main Heading */}
@@ -71,7 +76,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.6 }}
-          className="font-display text-5xl sm:text-7xl lg:text-8xl gold-gradient-text tracking-royal mb-6"
+          className="font-display
+                     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl
+                     gold-gradient-text tracking-royal mb-4 sm:mb-6 leading-tight"
         >
           LAND OF LEGACY.
         </motion.h1>
@@ -81,19 +88,31 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.9 }}
-          className="font-elegant text-xl sm:text-2xl text-muted-foreground italic max-w-xl mb-12"
+          className="font-elegant
+                     text-base sm:text-lg md:text-xl lg:text-2xl
+                     text-muted-foreground italic
+                     max-w-[280px] sm:max-w-sm md:max-w-xl
+                     mb-8 sm:mb-12"
         >
           A Premium Investment Destination Since 1999
         </motion.p>
 
-        {/* Button */}
+        {/* CTA Button */}
         <motion.button
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.2 }}
           whileHover={{ scale: 1.05 }}
           onClick={scrollToProjects}
-          className="gold-border px-12 py-4 font-body text-sm uppercase tracking-ultra text-primary transition-all duration-500 hover:bg-primary hover:text-primary-foreground gold-shimmer"
+          className="gold-border
+                     px-8 sm:px-10 md:px-12
+                     py-3 sm:py-4
+                     font-body text-xs sm:text-sm
+                     uppercase tracking-ultra
+                     text-primary
+                     transition-all duration-500
+                     hover:bg-primary hover:text-primary-foreground
+                     gold-shimmer"
         >
           Enter Our Projects
         </motion.button>
@@ -103,12 +122,12 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
-          className="absolute bottom-10"
+          className="absolute bottom-6 sm:bottom-8 md:bottom-10 flex flex-col items-center"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent"
+            className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-primary/50 to-transparent"
           />
         </motion.div>
 
