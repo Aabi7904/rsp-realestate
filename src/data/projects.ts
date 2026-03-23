@@ -16,7 +16,7 @@ import srinivasanagar from "@/assets/videos/SRINIVASA-NAGAR.mp4";
 import thulasivanam from "@/assets/videos/THULASI-VANAM-PARK.mp4";
 import marutinagar from "@/assets/videos/MARUTHI-NAGAR.mp4";
 import sairamnagar from "@/assets/videos/SAIRAM-NAGAR.mp4";
-
+import lakshmigardern3 from "@/assets/videos/LAKSHMI-GARDEN 3.mp4";
 export interface Project {
   id: string;
   name: string;
@@ -135,7 +135,7 @@ export const projects: Project[] = [
   status: "Upcoming",
   image: "laxmi-garden-3",
   layoutImage: "laxmi-garden-3",
-   video: projectVideo1,
+   video: lakshmigardern3,
   galleryImages: ["project-4","project-2","project-3","project-1"],
   amenities: defaultAmenities,
   landmarks: ["Near College","Highway Access","Bus Stop","Market Close"],
