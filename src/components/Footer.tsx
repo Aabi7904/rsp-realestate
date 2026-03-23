@@ -50,7 +50,7 @@ const Footer = () => (
             ))}
           </div>
 
-          {/* SOCIAL BOXES BELOW QUICK LINKS */}
+          {/* SOCIAL BOXES */}
           <div className="flex justify-center gap-8">
 
             {/* Instagram */}
@@ -60,10 +60,13 @@ const Footer = () => (
               rel="noopener noreferrer"
               className="flex flex-col items-center group"
             >
-              <div className="flex items-center justify-center w-20 h-20 border border-primary rounded-xl hover:bg-primary/10 transition-all duration-300">
-                <Instagram className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+              <div className="flex items-center justify-center w-20 h-20 border rounded-xl 
+                hover:shadow-lg transition-all duration-300
+                bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600"
+              >
+                <Instagram className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
               </div>
-              <span className="mt-2 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+              <span className="mt-2 text-xs text-muted-foreground group-hover:text-pink-500 transition-colors">
                 Instagram
               </span>
             </a>
@@ -75,10 +78,13 @@ const Footer = () => (
               rel="noopener noreferrer"
               className="flex flex-col items-center group"
             >
-              <div className="flex items-center justify-center w-20 h-20 border border-primary rounded-xl hover:bg-primary/10 transition-all duration-300">
-                <Youtube className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+              <div className="flex items-center justify-center w-20 h-20 border rounded-xl 
+                hover:shadow-lg transition-all duration-300
+                bg-red-600"
+              >
+                <Youtube className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
               </div>
-              <span className="mt-2 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+              <span className="mt-2 text-xs text-muted-foreground group-hover:text-red-500 transition-colors">
                 YouTube
               </span>
             </a>
