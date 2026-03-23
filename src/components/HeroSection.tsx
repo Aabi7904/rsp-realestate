@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import heroImg from "@/assets/hero-land.jpg";
-import logoImg from "@/assets/since.jpeg";
+import logoImg from "@/assets/since1.png";
 
 const HeroSection = () => {
   const location = useLocation();
