@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ShieldCheck, FileCheck, Smile, Award, Landmark, Target, Eye } from "lucide-react";
 import mdPortrait from "@/assets/rspmd2.jpg";
+import { Helmet } from "react-helmet-async";
 
 const About = () => {
 
@@ -30,6 +31,7 @@ const About = () => {
     }, [end]);
 
     return (
+      
       <motion.span
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: [1, 1.15, 1], opacity: 1 }}
@@ -43,6 +45,10 @@ const About = () => {
 
   return (
     <>
+    <Helmet>
+  <title>About RSP Developers | 25 Years of Real Estate Legacy</title>
+  <meta name="description" content="Learn about RSP Developers Ltd and our visionary founder Mr. R.R. Sakthi Prasana. Over 25 years of excellence, 45+ projects, and 3000+ happy families in Chetpet." />
+</Helmet>
       {/* ================= HERO SECTION ================= */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
 

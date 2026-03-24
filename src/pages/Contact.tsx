@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -46,6 +47,10 @@ const Contact = () => {
 
   return (
     <>
+    <Helmet>
+  <title>Contact RSP Developers | Real Estate Office in Chetpet</title>
+  <meta name="description" content="Get in touch with RSP Developers Ltd. Visit our office in Chetpet, near Tiruvannamalai, or call us at 9443355212 to book your premium plot today." />
+</Helmet>
       {/* Hero */}
       <section className="section-navy min-h-[50vh] flex items-center justify-center text-center px-6 pt-32 pb-20">
         <div>

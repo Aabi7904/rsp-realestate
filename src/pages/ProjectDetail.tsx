@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   Download,
@@ -320,6 +321,7 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
+      
       <section className="min-h-screen flex flex-col items-center justify-center gap-6 px-6 pt-32">
         <h1 className="font-heading text-4xl text-foreground">Project Not Found</h1>
         <Link to="/" className="gold-border px-6 py-3 font-body text-xs uppercase tracking-royal text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500">
@@ -339,6 +341,10 @@ const ProjectDetail = () => {
 
   return (
     <>
+    <Helmet>
+  <title>{project.name} | Premium Plots by RSP Developers</title>
+  <meta name="description" content={`Explore ${project.name}, a premium DTCP approved residential layout by RSP Developers. Located at ${project.address}. Secure your legacy today.`} />
+</Helmet>
       {/* ── Hero ── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <img
