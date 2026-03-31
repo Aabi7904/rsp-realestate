@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Download,
   MapPin,
   Phone,
   ChevronLeft,
@@ -43,6 +42,7 @@ import laxminagar from "@/assets/laxmi nagar.png";
 import maruthinagar2 from "@/assets/maruthi nagar extended.png";
 import dhanasrinagar from "@/assets/dhana-sri-nagar.png";
 import thulasivanam from "@/assets/tulasi-vanam.jpeg";
+
 const imageMap: Record<string, string> = {
   "project-1": project1,
   "project-2": project2,
@@ -58,7 +58,7 @@ const imageMap: Record<string, string> = {
   "anandam-nagar": anandamnagar,
   "udhayam-nagar": udhayamnagar,
   "srinivasa-nagar": srinivasanagar,
-  "tulasi-vanam": thulasivanam ,
+  "tulasi-vanam": thulasivanam,
   "maruthi-nagar": maruthinagar,
   "renuka-nagar": renukanagar,
   "laxmi-garden": laxmigarden,
@@ -84,7 +84,14 @@ const anim = {
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const project = projects.find((p) => p.id === slug);
+  const navigate = useNavigate();
+  
+  const currentIndex = projects.findIndex((p) => p.id === slug);
+  const project = projects[currentIndex];
+  
+  const prevProject = projects[currentIndex - 1];
+  const nextProject = projects[currentIndex + 1];
+
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
 
@@ -101,6 +108,16 @@ const ProjectDetail = () => {
 
   const galleryImages = project.galleryImages.map((k) => imageMap[k]);
 
+  // Enhanced Swipe Logic
+  const handleSwipe = (_: any, info: any) => {
+    const swipeThreshold = 50; // Reduced threshold for better sensitivity
+    if (info.offset.x < -swipeThreshold && nextProject) {
+      navigate(`/projects/${nextProject.id}`);
+    } else if (info.offset.x > swipeThreshold && prevProject) {
+      navigate(`/projects/${prevProject.id}`);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Thank you! We'll contact you shortly.");
@@ -108,7 +125,17 @@ const ProjectDetail = () => {
   };
 
   return (
-    <>
+    <motion.div
+      key={slug}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      onDragEnd={handleSwipe}
+      className="overflow-x-hidden touch-none" // touch-none ensures drag isn't interrupted by browser scroll
+    >
       {/* ── Hero ── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <img
@@ -166,7 +193,7 @@ const ProjectDetail = () => {
         </Link>
       </section>
 
-      {/* ── Layout Map (Moved to First Position) ── */}
+      {/* ── Layout Map Section ── */}
       <section className="py-24 px-6 border-b border-border">
         <div className="container mx-auto max-w-5xl">
           <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-center mb-16">
@@ -186,34 +213,63 @@ const ProjectDetail = () => {
                 className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </div>
-            
           </motion.div>
+
+          {/* ── BIG BOLD SHORTCUT BUTTONS ── */}
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-border/40 pt-12">
+            {prevProject ? (
+              <Link
+                to={`/projects/${prevProject.id}`}
+                className="group flex items-center gap-6 p-8 bg-secondary/20 border border-border/50 rounded-xl hover:border-primary/50 transition-all duration-500"
+              >
+                <div className="w-14 h-14 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-all">
+                  <ChevronLeft className="w-6 h-6" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-1">Previous Project</span>
+                  <span className="text-xl font-heading text-foreground group-hover:translate-x-1 transition-transform">{prevProject.name}</span>
+                </div>
+              </Link>
+            ) : <div />}
+
+            {nextProject ? (
+              <Link
+                to={`/projects/${nextProject.id}`}
+                className="group flex items-center justify-end text-right gap-6 p-8 bg-secondary/20 border border-border/50 rounded-xl hover:border-primary/50 transition-all duration-500"
+              >
+                <div className="flex flex-col order-2 sm:order-1">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-1">Next Project</span>
+                  <span className="text-xl font-heading text-foreground group-hover:-translate-x-1 transition-transform">{nextProject.name}</span>
+                </div>
+                <div className="w-14 h-14 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-all order-1 sm:order-2">
+                  <ChevronRight className="w-6 h-6" />
+                </div>
+              </Link>
+            ) : <div />}
+          </div>
         </div>
       </section>
-   {/* ── Project Video ── */}
-{project.video && (
-  <section className="py-24 px-6 border-b border-border">
-    <div className="container mx-auto max-w-5xl">
 
-      <div className="text-center mb-10">
-        <p className="text-xs uppercase text-primary mb-2">Walkthrough</p>
-        <h2 className="text-2xl font-bold">Project Video</h2>
-      </div>
-
-      {/* ✅ FIXED VIDEO UI */}
-      <div className="flex justify-center">
-        <div className="max-h-[80vh] aspect-[9/16] gold-border p-2">
-          <video
-            src={project.video}
-            controls
-            className="h-full w-full object-contain rounded-lg"
-          />
-        </div>
-      </div>
-
-    </div>
-  </section>
-)}
+      {/* ── Project Video ── */}
+      {project.video && (
+        <section className="py-24 px-6 border-b border-border">
+          <div className="container mx-auto max-w-5xl">
+            <div className="text-center mb-10">
+              <p className="text-xs uppercase text-primary mb-2">Walkthrough</p>
+              <h2 className="text-2xl font-bold text-foreground">Project Video</h2>
+            </div>
+            <div className="flex justify-center">
+              <div className="max-h-[80vh] aspect-[9/16] gold-border p-2">
+                <video
+                  src={project.video}
+                  controls
+                  className="h-full w-full object-contain rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── About ── */}
       <section className="py-24 px-6">
@@ -429,7 +485,7 @@ const ProjectDetail = () => {
           />
         </div>
       )}
-    </>
+    </motion.div>
   );
 };
 
