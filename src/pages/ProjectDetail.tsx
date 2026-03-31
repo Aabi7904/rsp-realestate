@@ -1,7 +1,6 @@
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   Download,
@@ -20,10 +19,6 @@ import {
   Waves,
   LayoutGrid,
   CheckCircle2,
-  ZoomIn,
-  ZoomOut,
-  Maximize2,
-  Move,
 } from "lucide-react";
 import { projects } from "@/data/projects";
 import { toast } from "sonner";
@@ -48,7 +43,6 @@ import laxminagar from "@/assets/laxmi nagar.png";
 import maruthinagar2 from "@/assets/maruthi nagar extended.png";
 import dhanasrinagar from "@/assets/dhana-sri-nagar.png";
 import thulasivanam from "@/assets/tulasi-vanam.jpeg";
-
 const imageMap: Record<string, string> = {
   "project-1": project1,
   "project-2": project2,
@@ -64,7 +58,7 @@ const imageMap: Record<string, string> = {
   "anandam-nagar": anandamnagar,
   "udhayam-nagar": udhayamnagar,
   "srinivasa-nagar": srinivasanagar,
-  "tulasi-vanam": thulasivanam,
+  "tulasi-vanam": thulasivanam ,
   "maruthi-nagar": maruthinagar,
   "renuka-nagar": renukanagar,
   "laxmi-garden": laxmigarden,
@@ -88,231 +82,6 @@ const anim = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-// ── Zoomable Layout Map Component ──────────────────────────────────────────
-const ZoomableLayoutMap = ({ src, alt }: { src: string; alt: string }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  const [translate, setTranslate] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [lastTranslate, setLastTranslate] = useState({ x: 0, y: 0 });
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  const MIN_SCALE = 0.5;
-  const MAX_SCALE = 5;
-
-  const clampTranslate = useCallback(
-    (tx: number, ty: number, currentScale: number) => {
-      const container = containerRef.current;
-      if (!container) return { x: tx, y: ty };
-      const { width, height } = container.getBoundingClientRect();
-      const maxX = (width * (currentScale - 1)) / 2;
-      const maxY = (height * (currentScale - 1)) / 2;
-      return {
-        x: Math.max(-maxX, Math.min(maxX, tx)),
-        y: Math.max(-maxY, Math.min(maxY, ty)),
-      };
-    },
-    []
-  );
-
-  const handleZoomIn = () => {
-    const newScale = Math.min(scale + 0.5, MAX_SCALE);
-    const clamped = clampTranslate(translate.x, translate.y, newScale);
-    setScale(newScale);
-    setTranslate(clamped);
-  };
-
-  const handleZoomOut = () => {
-    const newScale = Math.max(scale - 0.5, MIN_SCALE);
-    const clamped = clampTranslate(translate.x, translate.y, newScale);
-    setScale(newScale);
-    setTranslate(clamped);
-    if (newScale <= 1) setTranslate({ x: 0, y: 0 });
-  };
-
-  const handleReset = () => {
-    setScale(1);
-    setTranslate({ x: 0, y: 0 });
-  };
-
-  // Mouse drag
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (scale <= 1) return;
-    setIsDragging(true);
-    setDragStart({ x: e.clientX, y: e.clientY });
-    setLastTranslate(translate);
-    e.preventDefault();
-  };
-
-  const DRAG_DAMPING = 0.2;
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const dx = (e.clientX - dragStart.x) * DRAG_DAMPING;
-    const dy = (e.clientY - dragStart.y) * DRAG_DAMPING;
-    const clamped = clampTranslate(lastTranslate.x + dx, lastTranslate.y + dy, scale);
-    setTranslate(clamped);
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
-
-  // Touch drag
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
-  const lastTouchDistRef = useRef<number | null>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      setLastTranslate(translate);
-    } else if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      lastTouchDistRef.current = Math.sqrt(dx * dx + dy * dy);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    e.preventDefault();
-    if (e.touches.length === 1 && touchStartRef.current && scale > 1) {
-      const dx = (e.touches[0].clientX - touchStartRef.current.x) * DRAG_DAMPING;
-      const dy = (e.touches[0].clientY - touchStartRef.current.y) * DRAG_DAMPING;
-      const clamped = clampTranslate(lastTranslate.x + dx, lastTranslate.y + dy, scale);
-      setTranslate(clamped);
-    } else if (e.touches.length === 2 && lastTouchDistRef.current !== null) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const delta = dist - lastTouchDistRef.current;
-      lastTouchDistRef.current = dist;
-      const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta * 0.005));
-      const clamped = clampTranslate(translate.x, translate.y, newScale);
-      setScale(newScale);
-      setTranslate(clamped);
-    }
-  };
-
-  // Wheel zoom
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.05 : 0.05;
-    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta));
-    const clamped = clampTranslate(translate.x, translate.y, newScale);
-    setScale(newScale);
-    setTranslate(clamped);
-    if (newScale <= 1) setTranslate({ x: 0, y: 0 });
-  };
-
-  const mapContent = (
-    <div
-      ref={containerRef}
-      className={`relative overflow-hidden select-none ${
-        isFullscreen
-          ? "fixed inset-0 z-50 bg-background flex items-center justify-center"
-          : "w-full"
-      }`}
-      style={{ touchAction: "none" }}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={() => { touchStartRef.current = null; lastTouchDistRef.current = null; }}
-      onWheel={handleWheel}
-    >
-      {/* Controls Bar */}
-      <div className="absolute top-3 right-3 z-10 flex flex-col gap-2">
-        <button
-          onClick={(e) => { e.stopPropagation(); handleZoomIn(); }}
-          className="w-9 h-9 bg-black/80 border border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm"
-          title="Zoom In"
-        >
-          <ZoomIn className="w-4 h-4" />
-        </button>
-        <button
-          onClick={(e) => { e.stopPropagation(); handleZoomOut(); }}
-          className="w-9 h-9 bg-black/80 border border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm"
-          title="Zoom Out"
-        >
-          <ZoomOut className="w-4 h-4" />
-        </button>
-        <button
-          onClick={(e) => { e.stopPropagation(); handleReset(); }}
-          className="w-9 h-9 bg-black/80 border border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm text-[10px] font-bold"
-          title="Reset"
-        >
-          1:1
-        </button>
-        <button
-          onClick={(e) => { e.stopPropagation(); setIsFullscreen((v) => !v); handleReset(); }}
-          className="w-9 h-9 bg-black/80 border border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-black transition-all duration-300 backdrop-blur-sm"
-          title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-        >
-          {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-        </button>
-      </div>
-
-      {/* Scale Indicator */}
-      <div className="absolute bottom-3 left-3 z-10 px-3 py-1 bg-black/80 border border-primary/30 text-primary text-[10px] font-body uppercase tracking-wider backdrop-blur-sm">
-        {Math.round(scale * 100)}%
-      </div>
-
-      {/* Drag hint */}
-      {scale > 1 && (
-        <div className="absolute bottom-3 right-3 z-10 px-3 py-1 bg-black/80 border border-primary/30 text-muted-foreground text-[10px] font-body flex items-center gap-1 backdrop-blur-sm">
-          <Move className="w-3 h-3 text-primary" /> Drag to pan
-        </div>
-      )}
-
-      {/* Image */}
-      <div
-        style={{
-          transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
-          transformOrigin: "center center",
-          transition: isDragging ? "none" : "transform 0.15s ease-out",
-          cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
-        }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          className={`block w-full object-contain pointer-events-none ${
-            isFullscreen ? "max-h-screen max-w-screen" : ""
-          }`}
-          draggable={false}
-        />
-      </div>
-
-      {/* Fullscreen close hint */}
-      {isFullscreen && (
-        <div className="absolute top-3 left-3 z-10 px-3 py-2 bg-black/80 border border-primary/30 text-primary text-[10px] font-body uppercase tracking-wider backdrop-blur-sm flex items-center gap-2">
-          <Maximize2 className="w-3 h-3" /> Fullscreen — scroll to zoom · drag to pan
-        </div>
-      )}
-    </div>
-  );
-
-  return (
-    <>
-      {/* Main container */}
-      <div className="gold-border p-2 overflow-hidden relative">
-        {/* Instruction banner */}
-        <div className="flex items-center gap-3 px-5 py-3 mb-2 bg-primary/10 border-b border-primary/30">
-          <ZoomIn className="w-4 h-4 text-primary shrink-0" />
-          <p className="font-body text-xs sm:text-sm text-primary font-semibold tracking-wide">
-            Scroll or pinch to zoom · Click & drag to pan · Use controls →
-          </p>
-        </div>
-        {mapContent}
-      </div>
-
-      {/* Fullscreen portal rendered via state — already fixed/inset above */}
-    </>
-  );
-};
-
-// ── Main Component ─────────────────────────────────────────────────────────
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = projects.find((p) => p.id === slug);
@@ -321,7 +90,6 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      
       <section className="min-h-screen flex flex-col items-center justify-center gap-6 px-6 pt-32">
         <h1 className="font-heading text-4xl text-foreground">Project Not Found</h1>
         <Link to="/" className="gold-border px-6 py-3 font-body text-xs uppercase tracking-royal text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500">
@@ -341,10 +109,6 @@ const ProjectDetail = () => {
 
   return (
     <>
-    <Helmet>
-  <title>{project.name} | Premium Plots by RSP Developers</title>
-  <meta name="description" content={`Explore ${project.name}, a premium DTCP approved residential layout by RSP Developers. Located at ${project.address}. Secure your legacy today.`} />
-</Helmet>
       {/* ── Hero ── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <img
@@ -402,7 +166,7 @@ const ProjectDetail = () => {
         </Link>
       </section>
 
-      {/* ── Layout Map (Zoomable & Pannable) ── */}
+      {/* ── Layout Map (Moved to First Position) ── */}
       <section className="py-24 px-6 border-b border-border">
         <div className="container mx-auto max-w-5xl">
           <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-center mb-16">
@@ -412,34 +176,44 @@ const ProjectDetail = () => {
           </motion.div>
 
           <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <ZoomableLayoutMap
-              src={imageMap[project.layoutImage]}
-              alt={`${project.name} Layout`}
-            />
+            <div
+              className="gold-border p-2 cursor-pointer group"
+              onClick={() => setLightboxIdx(-1)}
+            >
+              <img
+                src={imageMap[project.layoutImage]}
+                alt={`${project.name} Layout`}
+                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
+            
           </motion.div>
         </div>
       </section>
+   {/* ── Project Video ── */}
+{project.video && (
+  <section className="py-24 px-6 border-b border-border">
+    <div className="container mx-auto max-w-5xl">
 
-      {/* ── Project Video ── */}
-      {project.video && (
-        <section className="py-24 px-6 border-b border-border">
-          <div className="container mx-auto max-w-5xl">
-            <div className="text-center mb-10">
-              <p className="text-xs uppercase text-primary mb-2">Walkthrough</p>
-              <h2 className="text-2xl font-bold">Project Video</h2>
-            </div>
-            <div className="flex justify-center">
-              <div className="max-h-[80vh] aspect-[9/16] gold-border p-2">
-                <video
-                  src={project.video}
-                  controls
-                  className="h-full w-full object-contain rounded-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      <div className="text-center mb-10">
+        <p className="text-xs uppercase text-primary mb-2">Walkthrough</p>
+        <h2 className="text-2xl font-bold">Project Video</h2>
+      </div>
+
+      {/* ✅ FIXED VIDEO UI */}
+      <div className="flex justify-center">
+        <div className="max-h-[80vh] aspect-[9/16] gold-border p-2">
+          <video
+            src={project.video}
+            controls
+            className="h-full w-full object-contain rounded-lg"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
 
       {/* ── About ── */}
       <section className="py-24 px-6">
@@ -558,41 +332,6 @@ const ProjectDetail = () => {
                 ))}
               </ul>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Gallery ── */}
-      <section className="py-24 px-6 border-t border-border">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }} className="text-center mb-16">
-            <p className="font-body text-xs uppercase tracking-ultra text-primary mb-4">Visual Tour</p>
-            <h2 className="font-heading text-3xl sm:text-4xl text-foreground mb-6">Project Gallery</h2>
-            <div className="gold-divider max-w-[80px] mx-auto" />
-          </motion.div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {galleryImages.map((src, i) => (
-              <motion.div
-                key={i}
-                variants={anim}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative overflow-hidden cursor-pointer group gold-border-hover"
-                onClick={() => setLightboxIdx(i)}
-              >
-                <img
-                  src={src}
-                  alt={`${project.name} gallery ${i + 1}`}
-                  className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-background/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <span className="font-body text-xs uppercase tracking-royal text-primary">View</span>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
