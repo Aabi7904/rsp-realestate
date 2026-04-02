@@ -29,8 +29,6 @@ const imageMap: Record<string, string> = {
   "project-2": project2,
   "project-3": project3,
   "project-4": project4,
-
-  // ✅ NEW IMAGE (Dhana Shri Nagar)
   "dhana-shri-nagar": dhanaSriNagar,
   "laxmi-garden": laxmigarden,
   "balaji-nagar": balajiNagar,
@@ -49,14 +47,19 @@ const imageMap: Record<string, string> = {
   "renuka-nagar": renukaNagar,
 };
 
+const btnGoldShadow: React.CSSProperties = {
+  boxShadow: "0 0 20px rgba(212,175,55,0.4)",
+};
+
 const ProjectShowcase = () => {
-  const [activeRoad, setActiveRoad] = useState<Road>("ALL");
+  const [activeRoad, setActiveRoad] = useState<Road | "ALL">("ALL");
   const [visibleItems, setVisibleItems] = useState<Set<string>>(new Set());
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const filtered = activeRoad === "ALL"
-    ? projects
-    : projects.filter((p) => p.road === activeRoad);
+  const filtered =
+    activeRoad === "ALL"
+      ? projects
+      : projects.filter((p) => p.road === activeRoad);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -69,7 +72,6 @@ const ProjectShowcase = () => {
       },
       { threshold: 0.15 }
     );
-
     return () => observerRef.current?.disconnect();
   }, []);
 
@@ -146,7 +148,9 @@ const ProjectShowcase = () => {
                 id={project.id}
                 data-project-card
                 className={`group relative block h-[400px] sm:h-[500px] overflow-hidden cursor-pointer transition-all duration-700 ${
-                  visibleItems.has(project.id) ? "opacity-100" : "opacity-0 translate-y-8"
+                  visibleItems.has(project.id)
+                    ? "opacity-100"
+                    : "opacity-0 translate-y-8"
                 }`}
               >
                 {/* Image */}
@@ -163,38 +167,42 @@ const ProjectShowcase = () => {
                 <div className="absolute inset-4 border border-transparent group-hover:border-primary/30 transition-all duration-700 pointer-events-none" />
 
                 {/* Content */}
-<div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-  
-  {/* ROAD NAME - Master Pill */}
-  <span className="mb-6 px-5 py-2 bg-black/80 text-primary border border-primary/40 text-[10px] uppercase tracking-[0.2em] font-bold rounded-full shadow-xl backdrop-blur-md">
-    {project.road}
-  </span>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                  {/* Road name pill */}
+                  <span className="mb-6 px-5 py-2 bg-black/80 text-primary border border-primary/40 text-[10px] uppercase tracking-[0.2em] font-bold rounded-full shadow-xl backdrop-blur-md">
+                    {project.road}
+                  </span>
 
-  {/* PROJECT NAME */}
-  <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-white mb-6 transition-transform duration-500 group-hover:-translate-y-2 drop-shadow-2xl">
-    {project.name}
-  </h3>
+                  {/* Project name */}
+                  <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-white mb-6 transition-transform duration-500 group-hover:-translate-y-2 drop-shadow-2xl">
+                    {project.name}
+                  </h3>
 
-  <div className="gold-divider w-16 mb-10 transition-all duration-500 group-hover:w-24" />
+                  <div className="gold-divider w-16 mb-10 transition-all duration-500 group-hover:w-24" />
 
-  {/* VIEW PROJECT BUTTON - Enhanced Visibility & Positioned for Balance */}
-  <div className="opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
-    <div className="flex items-center gap-3 px-8 py-3.5 bg-primary text-black font-bold text-[11px] uppercase tracking-widest rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-      <span>View Project Details</span>
-      <ArrowRight className="w-4 h-4" />
-    </div>
-  </div>
-</div>
+                  {/* View project button */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+                    <div
+                      className="flex items-center gap-3 px-8 py-3.5 bg-primary text-black font-bold text-[11px] uppercase tracking-widest rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
+                      style={btnGoldShadow}
+                    >
+                      <span>View Project Details</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
 
                 {/* Status badge */}
                 <div className="absolute top-6 right-6">
-                  <span className={`font-body text-[10px] uppercase tracking-royal px-3 py-1 ${
-                    project.status === "Ongoing"
-                      ? "bg-primary/20 text-primary"
-                      : project.status === "Upcoming"
+                  <span
+                    className={`font-body text-[10px] uppercase tracking-royal px-3 py-1 ${
+                      project.status === "Ongoing"
+                        ? "bg-primary/20 text-primary"
+                        : project.status === "Upcoming"
                         ? "bg-accent/20 text-emerald-light"
                         : "text-muted-foreground"
-                  }`}>
+                    }`}
+                  >
                     {project.status}
                   </span>
                 </div>
