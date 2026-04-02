@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
 import {
   ArrowLeft,
   MapPin,
@@ -18,6 +19,7 @@ import {
   Waves,
   LayoutGrid,
   CheckCircle2,
+  List,
 } from "lucide-react";
 import { projects } from "@/data/projects";
 import { toast } from "sonner";
@@ -43,6 +45,9 @@ import maruthinagar2 from "@/assets/maruthi nagar extended.png";
 import dhanasrinagar from "@/assets/dhana-sri-nagar.png";
 import thulasivanam from "@/assets/tulasi-vanam.jpeg";
 
+import dhanasrinagarplots from "@/assets/dhanasri-nagar-plots.jpg";
+import lakshmigardernplots from "@/assets/lakshmi-gardern-plots.jpg";
+
 const imageMap: Record<string, string> = {
   "project-1": project1,
   "project-2": project2,
@@ -64,6 +69,9 @@ const imageMap: Record<string, string> = {
   "laxmi-garden": laxmigarden,
   "laxmi-nagar": laxminagar,
   "maruthi-nagar-extended": maruthinagar2,
+
+"dhanasri-nagar-plots": dhanasrinagarplots,
+"lakshmi-gardern-plots": lakshmigardernplots,
 };
 
 const iconMap: Record<string, React.ElementType> = {
@@ -93,6 +101,7 @@ const ProjectDetail = () => {
   const nextProject = projects[currentIndex + 1];
 
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [lightboxType, setLightboxType] = useState<"gallery" | "layout" | "plotList" | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
 
   if (!project) {
@@ -108,9 +117,12 @@ const ProjectDetail = () => {
 
   const galleryImages = project.galleryImages.map((k) => imageMap[k]);
 
+  // Resolve plot list image — supports a key string in imageMap or a direct URL/import
+  const plotListImage = project.plotListImage ? imageMap[project.plotListImage] ?? project.plotListImage : null;
+
   // Enhanced Swipe Logic
   const handleSwipe = (_: any, info: any) => {
-    const swipeThreshold = 50; // Reduced threshold for better sensitivity
+    const swipeThreshold = 50;
     if (info.offset.x < -swipeThreshold && nextProject) {
       navigate(`/projects/${nextProject.id}`);
     } else if (info.offset.x > swipeThreshold && prevProject) {
@@ -124,6 +136,23 @@ const ProjectDetail = () => {
     setForm({ name: "", phone: "", email: "", message: "" });
   };
 
+  const openLightbox = (type: "gallery" | "layout" | "plotList", idx: number = 0) => {
+    setLightboxType(type);
+    setLightboxIdx(idx);
+  };
+
+  const closeLightbox = () => {
+    setLightboxIdx(null);
+    setLightboxType(null);
+  };
+
+  const getLightboxSrc = () => {
+    if (lightboxType === "layout") return imageMap[project.layoutImage];
+    if (lightboxType === "plotList") return plotListImage ?? "";
+    if (lightboxType === "gallery" && lightboxIdx !== null) return galleryImages[lightboxIdx];
+    return "";
+  };
+
   return (
     <motion.div
       key={slug}
@@ -134,7 +163,7 @@ const ProjectDetail = () => {
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       onDragEnd={handleSwipe}
-      className="overflow-x-hidden touch-none" // touch-none ensures drag isn't interrupted by browser scroll
+      className="overflow-x-hidden touch-none"
     >
       {/* ── Hero ── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
@@ -205,7 +234,7 @@ const ProjectDetail = () => {
           <motion.div variants={anim} initial="hidden" whileInView="show" viewport={{ once: true }}>
             <div
               className="gold-border p-2 cursor-pointer group"
-              onClick={() => setLightboxIdx(-1)}
+              onClick={() => openLightbox("layout")}
             >
               <img
                 src={imageMap[project.layoutImage]}
@@ -247,6 +276,64 @@ const ProjectDetail = () => {
               </Link>
             ) : <div />}
           </div>
+
+          {/* ── Available Plots List ── */}
+          {plotListImage && (
+            <motion.div
+              variants={anim}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-20 border-t border-border/40 pt-16"
+            >
+              <div className="text-center mb-10">
+                <p className="font-body text-xs uppercase tracking-ultra text-primary mb-4 flex items-center justify-center gap-2">
+                  <List className="w-4 h-4" />
+                  Plot Availability
+                </p>
+                <h3 className="font-heading text-2xl sm:text-3xl text-foreground mb-4">
+                  Available Plots List
+                </h3>
+                <div className="gold-divider max-w-[60px] mx-auto mb-4" />
+                <p className="font-body text-xs text-muted-foreground">
+                  Click on the image to view in full size
+                </p>
+              </div>
+
+              <div
+                className="gold-border p-2 cursor-pointer group relative overflow-hidden"
+                onClick={() => openLightbox("plotList")}
+              >
+                {/* Subtle overlay hint on hover */}
+                <div className="absolute inset-2 z-10 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500 flex items-center justify-center pointer-events-none">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/70 text-primary border border-primary/50 text-[10px] uppercase tracking-[0.2em] font-bold px-4 py-2 rounded-full backdrop-blur-sm">
+                    View Full Size
+                  </span>
+                </div>
+                <img
+                  src={plotListImage}
+                  alt={`${project.name} Available Plots`}
+                  className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* CTA below the plot list image */}
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="#enquiry"
+                  className="px-8 py-3 font-body text-xs uppercase tracking-ultra bg-primary text-black font-bold rounded-full hover:bg-white transition-all duration-500 shadow-[0_0_16px_rgba(212,175,55,0.35)] gold-shimmer"
+                >
+                  Book Your Plot
+                </a>
+                <a
+                  href="tel:9443355212"
+                  className="inline-flex items-center gap-2 px-8 py-3 font-body text-xs uppercase tracking-ultra border border-border/60 text-muted-foreground hover:border-primary hover:text-primary rounded-full transition-all duration-500"
+                >
+                  <Phone className="w-3.5 h-3.5" /> Call: 9443355212
+                </a>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -451,26 +538,35 @@ const ProjectDetail = () => {
       </section>
 
       {/* ── Lightbox ── */}
-      {lightboxIdx !== null && (
+      {lightboxIdx !== null && lightboxType && (
         <div
           className="fixed inset-0 z-50 bg-background/95 flex items-center justify-center p-4"
-          onClick={() => setLightboxIdx(null)}
+          onClick={closeLightbox}
         >
-          <button className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors" onClick={() => setLightboxIdx(null)}>
+          <button
+            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors"
+            onClick={closeLightbox}
+          >
             <X className="w-6 h-6" />
           </button>
 
-          {lightboxIdx >= 0 && (
+          {lightboxType === "gallery" && (
             <>
               <button
                 className="absolute left-4 sm:left-8 text-foreground hover:text-primary transition-colors"
-                onClick={(e) => { e.stopPropagation(); setLightboxIdx((lightboxIdx - 1 + galleryImages.length) % galleryImages.length); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((lightboxIdx - 1 + galleryImages.length) % galleryImages.length);
+                }}
               >
                 <ChevronLeft className="w-8 h-8" />
               </button>
               <button
                 className="absolute right-4 sm:right-8 text-foreground hover:text-primary transition-colors"
-                onClick={(e) => { e.stopPropagation(); setLightboxIdx((lightboxIdx + 1) % galleryImages.length); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((lightboxIdx + 1) % galleryImages.length);
+                }}
               >
                 <ChevronRight className="w-8 h-8" />
               </button>
@@ -478,7 +574,7 @@ const ProjectDetail = () => {
           )}
 
           <img
-            src={lightboxIdx === -1 ? imageMap[project.image] : galleryImages[lightboxIdx]}
+            src={getLightboxSrc()}
             alt={project.name}
             className="max-w-full max-h-[85vh] object-contain"
             onClick={(e) => e.stopPropagation()}

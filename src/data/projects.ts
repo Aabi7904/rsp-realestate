@@ -17,6 +17,9 @@ import thulasivanam from "@/assets/videos/THULASI-VANAM-PARK.mp4";
 import marutinagar from "@/assets/videos/MARUTHI-NAGAR.mp4";
 import sairamnagar from "@/assets/videos/SAIRAM-NAGAR.mp4";
 import lakshmigardern3 from "@/assets/videos/LAKSHMI-GARDEN 3.mp4";
+
+// ADD THIS around line 16, with the other imports:
+
 export interface Project {
   id: string;
   name: string;
@@ -31,6 +34,7 @@ export interface Project {
   reraNumber?: string;
   image: string;
   layoutImage: string;
+  plotListImage?: string;       // ← ADDED (optional)
   galleryImages: string[];
   amenities: Amenity[];
   landmarks: string[];
@@ -76,7 +80,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "dhana-shri-nagar",
   layoutImage: "dhana-shri-nagar",
-   video: dhanasrinagar,
+  plotListImage: "dhanasri-nagar-plots",   // add your image key here
+  video: dhanasrinagar,
   galleryImages: ["project-1","project-2","project-3","project-4"],
   amenities: defaultAmenities,
   landmarks: ["Near Bus Stand","Close to NH","Near School","Hospital Nearby"],
@@ -95,7 +100,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "laxmi-garden",
   layoutImage: "laxmi-garden",
-   video: lakshmigardern,
+  plotListImage: "lakshmi-gardern-plots", // plotListImage: "lakshmi-garden-plots",   // ← uncomment & add key when you have the image
+  video: lakshmigardern,
   galleryImages: ["project-3","project-1","project-2","project-4"],
   amenities: defaultAmenities,
   landmarks: ["On Main Road","Near Hospital","Scenic Area","Close to Town"],
@@ -115,7 +121,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "balaji-nagar",
   layoutImage: "balaji-nagar",
-   video: balajjinagar,
+  // plotListImage: "balaji-nagar-plots",
+  video: balajjinagar,
   galleryImages: ["project-3","project-2","project-1","project-4"],
   amenities: defaultAmenities,
   landmarks: ["Near College","Market Nearby","Town Access","Highway Connectivity"],
@@ -135,7 +142,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "laxmi-garden-3",
   layoutImage: "laxmi-garden-3",
-   video: lakshmigardern3,
+  // plotListImage: "lakshmi-garden-3-plots",
+  video: lakshmigardern3,
   galleryImages: ["project-4","project-2","project-3","project-1"],
   amenities: defaultAmenities,
   landmarks: ["Near College","Highway Access","Bus Stop","Market Close"],
@@ -156,7 +164,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "happy-home",
   layoutImage: "happy-home",
-   video: happyhome,
+  // plotListImage: "happy-home-plots",
+  video: happyhome,
   galleryImages: ["project-1","project-3","project-2","project-4"],
   amenities: defaultAmenities,
   landmarks: ["On Main Road","Near Town","School Close","Hospital Nearby"],
@@ -176,11 +185,13 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "sivasakthi-nagar",
   layoutImage: "sivasakthi-nagar",
-   video: sivasakthinagar,
+  // plotListImage: "sivasakthi-nagar-plots",
+  video: sivasakthinagar,
   galleryImages: ["project-1","project-2","project-3","project-4"],
   amenities: defaultAmenities,
   landmarks: ["Near School","Hospital Nearby","Main Road","Bus Stop Close"],
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3895.6917388487!2d79.341578!3d12.470238000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDI4JzEyLjkiTiA3OcKwMjAnMjkuNyJF!5e0!3m2!1sen!2sin!4v1774030078525!5m2!1sen!2sin"},
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3895.6917388487!2d79.341578!3d12.470238000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDI4JzEyLjkiTiA3OcKwMjAnMjkuNyJF!5e0!3m2!1sen!2sin!4v1774030078525!5m2!1sen!2sin"
+},
 
 {
   id: "pournami-nagar",
@@ -195,7 +206,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "pournami-nagar",
   layoutImage: "pournami-nagar",
-   video: pournaminagar,
+  // plotListImage: "pournami-nagar-plots",
+  video: pournaminagar,
   galleryImages: ["project-1","project-2","project-3","project-4"],
   amenities: defaultAmenities,
   landmarks: ["Near Temple","Close to School","Bus Access","Hospital Nearby"],
@@ -215,7 +227,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "anandam-nagar",
   layoutImage: "anandam-nagar",
-   video: aananthamnagar,
+  // plotListImage: "anandam-nagar-plots",
+  video: aananthamnagar,
   galleryImages: ["project-2","project-4","project-1","project-3"],
   amenities: defaultAmenities,
   landmarks: ["Near PHC","Close to Town","Bus Stop Nearby","Main Road Access"],
@@ -235,6 +248,7 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "udhayam-nagar",
   layoutImage: "udhayam-nagar",
+  // plotListImage: "udhayam-nagar-plots",
   video: projectVideo1,
   galleryImages: ["project-4","project-1","project-2","project-3"],
   amenities: defaultAmenities,
@@ -255,7 +269,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "laxmi-nagar",
   layoutImage: "laxmi-nagar",
-   video: lakshminagar,
+  // plotListImage: "lakshmi-nagar-plots",
+  video: lakshminagar,
   galleryImages: ["project-2","project-3","project-4","project-1"],
   amenities: defaultAmenities,
   landmarks: ["Near Railway Station","Close to Market","College Nearby","8 km from Town"],
@@ -276,7 +291,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "srinivasa-nagar",
   layoutImage: "srinivasa-nagar",
-   video: srinivasanagar,
+  // plotListImage: "srinivasa-nagar-plots",
+  video: srinivasanagar,
   galleryImages: ["project-4","project-2","project-3","project-1"],
   amenities: defaultAmenities,
   landmarks: ["On Highway","Near Hills View","5 km from Town","Developing Zone"],
@@ -297,7 +313,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "maruthi-nagar",
   layoutImage: "maruthi-nagar",
-   video: marutinagar,
+  // plotListImage: "maruthi-nagar-plots",
+  video: marutinagar,
   galleryImages: ["project-2","project-3","project-4","project-1"],
   amenities: defaultAmenities,
   landmarks: ["Near Market","Bus Stop Nearby","Close to Town","Main Road Access"],
@@ -317,7 +334,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "tulasi-vanam",
   layoutImage: "tulasi-vanam",
-   video: thulasivanam,
+  // plotListImage: "thulasi-vanam-plots",
+  video: thulasivanam,
   galleryImages: ["project-3","project-1","project-2","project-4"],
   amenities: defaultAmenities,
   landmarks: ["Near Fort","Bus Stop","Hospital Nearby","Main Road"],
@@ -337,11 +355,14 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "sairam-nagar",
   layoutImage: "sairam-nagar",
-   video: sairamnagar,
+  // plotListImage: "sairam-nagar-plots",
+  video: sairamnagar,
   galleryImages: ["project-3","project-4","project-1","project-2"],
   amenities: defaultAmenities,
   landmarks: ["Near College","Hospital Close","Market Area","Highway Access"],
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3896.0123787827433!2d79.354338!3d12.448896000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDI2JzU2LjAiTiA3OcKwMjEnMTUuNiJF!5e0!3m2!1sen!2sin!4v1774030404279!5m2!1sen!2sin" },
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3896.0123787827433!2d79.354338!3d12.448896000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDI2JzU2LjAiTiA3OcKwMjEnMTUuNiJF!5e0!3m2!1sen!2sin!4v1774030404279!5m2!1sen!2sin"
+},
+
 {
   id: "shri-maruthi-nagar-2",
   name: "Shri Maruthi Nagar 2",
@@ -355,6 +376,7 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "maruthi-nagar-extended",
   layoutImage: "maruthi-nagar-extended",
+  // plotListImage: "maruthi-nagar-2-plots",
   galleryImages: ["project-4","project-1","project-2","project-3"],
   amenities: defaultAmenities,
   landmarks: ["On Main Road","Near Hills","Close to Bus Stop","Peaceful Area"],
@@ -374,7 +396,8 @@ export const projects: Project[] = [
   status: "Ongoing",
   image: "renuka-nagar",
   layoutImage: "renuka-nagar",
-   video: renugambalnagar,
+  // plotListImage: "renugambal-nagar-plots",
+  video: renugambalnagar,
   galleryImages: ["project-1","project-3","project-4","project-2"],
   amenities: defaultAmenities,
   landmarks: ["Near Bus Stop","Market Nearby","School Close","Hospital Nearby"],
