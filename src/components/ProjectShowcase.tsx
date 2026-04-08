@@ -18,7 +18,7 @@ import anandamnagar from "@/assets/anandam nagar.png";
 import udhayamNagar from "@/assets/udhayam nagar.png";
 import laxminagar from "@/assets/laxmi nagar.png";
 import srinivasaNagar from "@/assets/srinivasa nagar.png";
-import maruthiNagar from "@/assets/maruthi nagar.png";
+import maruthiNagar from "@/assets/maruthi-nagar.jpeg";
 import tulasivanam from "@/assets/tulasi vanam.png";
 import sairamnagar from "@/assets/sairam nagar.png";
 import maruthinagarextended from "@/assets/maruthi nagar extended.png";
