@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import YouTubeButton from "@/components/YouTubeButton";
 import ScrollProgress from "./components/ScrollProgress";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -36,6 +37,7 @@ const App = () => (
           </main>
           <Footer />
           <WhatsAppButton />
+          <YouTubeButton /> 
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
