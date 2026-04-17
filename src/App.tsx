@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import YouTubeButton from "@/components/YouTubeButton";
+import InstagramButton from "@/components/InstagramButton";
 import ScrollProgress from "./components/ScrollProgress";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -38,6 +39,7 @@ const App = () => (
           <Footer />
           <WhatsAppButton />
           <YouTubeButton /> 
+          <InstagramButton />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
