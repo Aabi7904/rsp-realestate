@@ -34,10 +34,7 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Content
-          — On mobile the navbar is ~56–64px tall, so pt-20 (80px) gives
-            a safe gap without pushing content too far down.
-          — On md+ the navbar is taller but justify-center handles centering. */}
+      {/* Content */}
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4 sm:px-6">
 
         {/* Logo (since1.png) */}
@@ -58,15 +55,14 @@ const HeroSection = () => {
           className="gold-divider mb-2 w-24"
         />
 
-        {/* Company Name
-            Reduced tracking on xs so the long string doesn't wrap oddly */}
+        {/* Company Name — NOW BIGGER & BOLD */}
         <motion.p
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="font-body text-[10px] sm:text-xs md:text-base lg:text-lg
-                     uppercase tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.4em]
-                     text-primary font-semibold mb-4 sm:mb-6 w-full px-2"
+          className="font-body text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl
+                     uppercase tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.3em]
+                     text-primary font-bold mb-4 sm:mb-6 w-full px-2"
         >
           RSP DEVELOPERS PVT.LTD. &mdash; SINCE 1999
         </motion.p>
